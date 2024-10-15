@@ -15,4 +15,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/tituloTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Ultima vacinacao"
+        android:textColor="@android:color/background_dark"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@id/toolbarIn"
+        app:layout_constraintStart_toStartOf="parent" />
+    <TextView
+        android:id="@+id/dataVacinaEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Data"
+        android:textSize="20sp"
+        android:inputType="date"
+        app:layout_constraintTop_toBottomOf="@id/tituloTv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

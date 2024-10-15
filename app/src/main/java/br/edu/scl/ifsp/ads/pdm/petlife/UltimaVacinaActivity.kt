@@ -1,7 +1,9 @@
 package br.edu.scl.ifsp.ads.pdm.petlife
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import br.edu.scl.ifsp.ads.pdm.petlife.MainActivity.Constantes.PARAMETRO_EXTRA
 import br.edu.scl.ifsp.ads.pdm.petlife.databinding.ActivityUltimaVacinaBinding
 
 class UltimaVacinaActivity : AppCompatActivity() {
@@ -11,5 +13,22 @@ class UltimaVacinaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(auv.root)
+        //adicionando a toobar para aparecer a logo da Petlife na parte superior da tela
+        setSupportActionBar(auv.toolbarIn.toolbar)
+
+        intent.getStringExtra(PARAMETRO_EXTRA)?.also { parametro ->
+            auv.dataVacinaEt.setText(parametro)
+        }
+        auv.ultVacinaBt.setOnClickListener{
+            //criando uma Intent
+            Intent().apply {
+                auv.dataVacinaEt.text.toString().let {
+                    putExtra(PARAMETRO_EXTRA, it)
+                }
+                setResult(RESULT_OK, this)//para devolver o valor para a main que sera inserido no campo texto da tela de parametro
+            }
+            finish()
+        }
+
     }
 }
