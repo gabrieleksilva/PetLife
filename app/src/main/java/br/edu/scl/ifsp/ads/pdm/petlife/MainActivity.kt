@@ -17,9 +17,11 @@ class MainActivity : AppCompatActivity() {
     companion object Constantes { // classe interna na main
         const val PARAMETRO_VACINA = "PARAMETRO_VACINA"
         const val PARAMETRO_VET = "PARAMETRO_VET"
+        const val PARAMETRO_PETSHOP = "PARAMETRO_PETSHOP"
     }
     private lateinit var parl: ActivityResultLauncher<Intent>
     private lateinit var varl: ActivityResultLauncher<Intent>
+    private lateinit var petarl: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,14 @@ class MainActivity : AppCompatActivity() {
             if (result.resultCode == RESULT_OK){
                 result.data?.getStringExtra(PARAMETRO_VET)?.let {
                     amb.dataVetTv.text = it
+                }
+            }
+        }
+
+        petarl = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK){
+                result.data?.getStringExtra(PARAMETRO_PETSHOP)?.let {
+                    amb.dataPetShopTv.text = it
                 }
             }
         }
@@ -64,6 +74,15 @@ class MainActivity : AppCompatActivity() {
                         putExtra(PARAMETRO_VET, it)
                     }
                     varl.launch(this)
+                }
+                true
+            }
+            R.id.petshopMi -> {
+                Intent("ULTIMA_VISITA_PETSHOP").apply {
+                    amb.dataPetShopTv.text.toString().let {
+                        putExtra(PARAMETRO_PETSHOP, it)
+                    }
+                    petarl.launch(this)
                 }
                 true
             }

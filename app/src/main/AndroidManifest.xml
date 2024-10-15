@@ -22,7 +22,12 @@
         </activity>
         <activity
             android:name=".UltimaVisitaPetShopActivity"
-            android:exported="false" />
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="ULTIMA_VISITA_PETSHOP" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".UltimaVisitaVetActivity"
             android:exported="false" >
