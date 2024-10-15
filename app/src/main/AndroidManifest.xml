@@ -25,7 +25,12 @@
             android:exported="false" />
         <activity
             android:name=".UltimaVisitaVetActivity"
-            android:exported="false" />
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="ULTIMA_VISITA_VET" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".DadosPetActivity"
             android:exported="false" />

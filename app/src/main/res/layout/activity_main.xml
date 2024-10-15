@@ -16,23 +16,44 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tituloTv"
+        android:id="@+id/tituloVetTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Ultima ida ao veterinario"
+        android:textColor="@android:color/background_dark"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@id/toolbarIn"
+        app:layout_constraintStart_toStartOf="parent" />
+    <TextView
+        android:id="@+id/dataVetTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Data"
+        android:textSize="20sp"
+        android:inputType="date"
+        app:layout_constraintTop_toBottomOf="@id/tituloVetTv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/tituloVacinaTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Ultima vacinacao"
         android:textColor="@android:color/background_dark"
         android:textSize="30sp"
-        app:layout_constraintTop_toBottomOf="@id/toolbarIn"
+        app:layout_constraintTop_toBottomOf="@id/dataVetTv"
         app:layout_constraintStart_toStartOf="parent" />
     <TextView
-        android:id="@+id/dataVacinaEt"
+        android:id="@+id/dataVacinaTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Data"
         android:textSize="20sp"
         android:inputType="date"
-        app:layout_constraintTop_toBottomOf="@id/tituloTv"
+        app:layout_constraintTop_toBottomOf="@id/tituloVacinaTv"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 

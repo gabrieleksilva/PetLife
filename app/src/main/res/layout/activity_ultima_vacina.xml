@@ -28,7 +28,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/dataVacinaEt"
+        android:id="@+id/dataVacinaTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Data"
