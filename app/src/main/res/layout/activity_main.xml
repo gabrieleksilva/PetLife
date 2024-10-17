@@ -15,15 +15,144 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    
+    <TextView
+        android:id="@+id/tituloNomeTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nome"
+        android:textSize="20sp"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarIn" />
+    <TextView
+        android:id="@+id/nomeTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_margin="15dp"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@+id/tituloNomeTv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+    <TextView
+        android:id="@+id/tituloDataNascTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Data de nascimento"
+        android:textSize="20sp"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nomeTv" />
+
+    <TextView
+        android:id="@+id/dataTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/tituloDataNascTv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/tituloEspecieTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Especie"
+        android:textSize="20sp"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        app:layout_constraintTop_toBottomOf="@id/dataTv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/especieRg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="left"
+        android:textSize="20sp"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tituloEspecieTv">
+
+    </TextView>
+    <LinearLayout
+        android:id="@+id/porteLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:visibility="visible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/corTv">
+
+        <TextView
+            android:id="@+id/porteTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Porte"
+            android:textSize="20sp"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/corTv" />
+
+        <Spinner
+            android:id="@+id/porteSp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/porte"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/porteTv" />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tituloCorTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cor"
+        android:textSize="20sp"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/especieRg" />
+
+    <TextView
+        android:id="@+id/corTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@+id/tituloCorTv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+
     <TextView
         android:id="@+id/tituloVetTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Ultima ida ao veterinario"
-        android:textColor="@android:color/background_dark"
-        android:textSize="30sp"
-        app:layout_constraintTop_toBottomOf="@id/toolbarIn"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/porteLl"
         app:layout_constraintStart_toStartOf="parent" />
     <TextView
         android:id="@+id/dataVetTv"
@@ -42,8 +171,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Ultima vacinacao"
-        android:textColor="@android:color/background_dark"
-        android:textSize="30sp"
+        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/dataVetTv"
         app:layout_constraintStart_toStartOf="parent" />
     <TextView
@@ -63,8 +191,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Ultima ida ao petshop"
-        android:textColor="@android:color/background_dark"
-        android:textSize="30sp"
+        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/dataVacinaTv"
         app:layout_constraintStart_toStartOf="parent" />
 
