@@ -7,7 +7,7 @@ import br.edu.scl.ifsp.ads.pdm.petlife.MainActivity.Constantes.PARAMETRO_VET
 import br.edu.scl.ifsp.ads.pdm.petlife.databinding.ActivityUltimaVisitaVetBinding
 
 class UltimaVisitaVetActivity : AppCompatActivity() {
-    private val auvet: ActivityUltimaVisitaVetBinding by lazy{
+    private val auvet: ActivityUltimaVisitaVetBinding by lazy {
         ActivityUltimaVisitaVetBinding.inflate(layoutInflater)
     }
 
@@ -20,12 +20,12 @@ class UltimaVisitaVetActivity : AppCompatActivity() {
             auvet.dataEt.setText(parametro)
         }
 
-        auvet.ultVisitBt.setOnClickListener{
+        auvet.ultVisitBt.setOnClickListener {
             Intent().apply {
                 auvet.dataEt.text.toString().let {
                     putExtra(PARAMETRO_VET, it)
                 }
-                setResult(RESULT_OK,this)
+                setResult(RESULT_OK, this)
             }
             finish()
         }

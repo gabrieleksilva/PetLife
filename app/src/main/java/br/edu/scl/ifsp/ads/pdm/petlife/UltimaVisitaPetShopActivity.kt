@@ -7,9 +7,10 @@ import br.edu.scl.ifsp.ads.pdm.petlife.MainActivity.Constantes.PARAMETRO_PETSHOP
 import br.edu.scl.ifsp.ads.pdm.petlife.databinding.ActivityUltimaVisitaPetShopBinding
 
 class UltimaVisitaPetShopActivity : AppCompatActivity() {
-    private val aups: ActivityUltimaVisitaPetShopBinding by lazy{
+    private val aups: ActivityUltimaVisitaPetShopBinding by lazy {
         ActivityUltimaVisitaPetShopBinding.inflate(layoutInflater)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(aups.root)
@@ -18,12 +19,15 @@ class UltimaVisitaPetShopActivity : AppCompatActivity() {
         intent.getStringExtra(PARAMETRO_PETSHOP)?.also { parametro ->
             aups.dataEt.setText(parametro)
         }
-        aups.ultVisitPetBt.setOnClickListener{
+        aups.ultVisitPetBt.setOnClickListener {
             Intent().apply {
                 aups.dataEt.text.toString().let {
                     putExtra(PARAMETRO_PETSHOP, it)
                 }
-                setResult(RESULT_OK, this)//para devolver o valor para a main que sera inserido no campo texto da tela de parametro
+                setResult(
+                    RESULT_OK,
+                    this
+                )//para devolver o valor para a main que sera inserido no campo texto da tela de parametro
             }
             finish()
         }

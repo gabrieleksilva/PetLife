@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import br.edu.scl.ifsp.ads.pdm.petlife.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private val amb: ActivityMainBinding by lazy{
+    private val amb: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         const val PARAMETRO_PETSHOP = "PARAMETRO_PETSHOP"
         const val PARAMETRO_DADOS = "PARAMETRO_DADOS"
     }
+
     private lateinit var parl: ActivityResultLauncher<Intent>
     private lateinit var varl: ActivityResultLauncher<Intent>
     private lateinit var petarl: ActivityResultLauncher<Intent>
@@ -36,41 +37,46 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(amb.root)
         setSupportActionBar(amb.toolbarIn.toolbar)
-        parl = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK){
-                result.data?.getStringExtra(PARAMETRO_VACINA)?.let {
-                    amb.dataVacinaTv.text = it
+        parl =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == RESULT_OK) {
+                    result.data?.getStringExtra(PARAMETRO_VACINA)?.let {
+                        amb.dataVacinaTv.text = it
+                    }
                 }
             }
-        }
 
-        varl = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK){
-                result.data?.getStringExtra(PARAMETRO_VET)?.let {
-                    amb.dataVetTv.text = it
+        varl =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == RESULT_OK) {
+                    result.data?.getStringExtra(PARAMETRO_VET)?.let {
+                        amb.dataVetTv.text = it
+                    }
                 }
             }
-        }
 
-        petarl = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK){
-                result.data?.getStringExtra(PARAMETRO_PETSHOP)?.let {
-                    amb.dataPetShopTv.text = it
+        petarl =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == RESULT_OK) {
+                    result.data?.getStringExtra(PARAMETRO_PETSHOP)?.let {
+                        amb.dataPetShopTv.text = it
+                    }
                 }
             }
-        }
 
-        dadosarl = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK){
+        dadosarl =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == RESULT_OK) {
 
-                result.data?.getParcelableExtra<Pet>(PARAMETRO_DADOS)?.let { pet ->
-                    preencheCamposMain(pet)
-                    preencheCamposDadosPet(pet)
+                    result.data?.getParcelableExtra<Pet>(PARAMETRO_DADOS)?.let { pet ->
+                        preencheCamposMain(pet)
+                        preencheCamposDadosPet(pet)
+                    }
                 }
             }
-        }
 
     }
+
     //criar o menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -78,14 +84,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
+        return when (item.itemId) {
             R.id.dadosMi -> {
                 Intent("DADOS_PET").apply {
-                        putExtra(PARAMETRO_DADOS, petNovo)
+                    putExtra(PARAMETRO_DADOS, petNovo)
                     dadosarl.launch(this)
                 }
                 true
             }
+
             R.id.vacinacaoMi -> {
                 Intent("ULTIMA_VACINA").apply {
                     amb.dataVacinaTv.text.toString().let {
@@ -95,6 +102,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 true
             }
+
             R.id.idaAoVetMi -> {
                 Intent("ULTIMA_VISITA_VET").apply {
                     amb.dataVetTv.text.toString().let {
@@ -104,6 +112,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 true
             }
+
             R.id.petshopMi -> {
                 Intent("ULTIMA_VISITA_PETSHOP").apply {
                     amb.dataPetShopTv.text.toString().let {
@@ -113,10 +122,14 @@ class MainActivity : AppCompatActivity() {
                 }
                 true
             }
-            else -> { false }
+
+            else -> {
+                false
+            }
         }
 
     }
+
     private fun preencheCamposMain(pet: Pet) {
         amb.nomeTv.text = pet.nome
         amb.dataTv.text = pet.dtNasc
@@ -124,6 +137,7 @@ class MainActivity : AppCompatActivity() {
         amb.especieTv.text = pet.tipo
         amb.porteTv.text = pet.porte
     }
+
     private fun preencheCamposDadosPet(pet: Pet) {
         petNovo.tipo = pet.tipo
         petNovo.nome = pet.nome
