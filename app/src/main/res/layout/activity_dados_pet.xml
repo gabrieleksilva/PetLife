@@ -101,16 +101,33 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/corEt" />
 
-        <Spinner
-            android:id="@+id/porteSp"
+        <RadioGroup
+            android:id="@+id/tamanhoRg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/porte"
+            android:orientation="vertical"
+            android:gravity="left"
             android:padding="5dp"
             android:layout_margin="5dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/porteTv" />
+            app:layout_constraintTop_toBottomOf="@id/especieTv">
+            <RadioButton
+                android:id="@+id/pequenoRb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pequeno" />
+            <RadioButton
+                android:id="@+id/medioRb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Medio" />
+            <RadioButton
+                android:id="@+id/grandeRb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Grande" />
+        </RadioGroup>
 
     </LinearLayout>
 

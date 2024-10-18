@@ -1,8 +1,3 @@
 <resources>
     <string name="app_name">PetLife</string>
-    <string-array name="porte">
-        <item>Pequeno</item>
-        <item>Medio</item>
-        <item>Grande</item>
-    </string-array>
 </resources>
