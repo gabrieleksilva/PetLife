@@ -2,13 +2,11 @@ package br.edu.scl.ifsp.ads.pdm.petlife
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import br.edu.scl.ifsp.ads.pdm.petlife.databinding.ActivityDadosPetBinding
 import br.edu.scl.ifsp.ads.pdm.petlife.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -66,7 +64,8 @@ class MainActivity : AppCompatActivity() {
             if (result.resultCode == RESULT_OK){
 
                 result.data?.getParcelableExtra<Pet>(PARAMETRO_DADOS)?.let { pet ->
-                    preencheCampos(pet)
+                    preencheCamposMain(pet)
+                    preencheCamposDadosPet(pet)
                 }
             }
         }
@@ -82,9 +81,7 @@ class MainActivity : AppCompatActivity() {
         return when(item.itemId){
             R.id.dadosMi -> {
                 Intent("DADOS_PET").apply {
-
                         putExtra(PARAMETRO_DADOS, petNovo)
-
                     dadosarl.launch(this)
                 }
                 true
@@ -120,19 +117,19 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-    private fun preencheCampos(pet: Pet) {
+    private fun preencheCamposMain(pet: Pet) {
         amb.nomeTv.text = pet.nome
         amb.dataTv.text = pet.dtNasc
         amb.corTv.text = pet.cor
         amb.especieTv.text = pet.tipo
-        amb.porteSp.text = pet.porte
-
+        amb.porteTv.text = pet.porte
+    }
+    private fun preencheCamposDadosPet(pet: Pet) {
+        petNovo.tipo = pet.tipo
         petNovo.nome = pet.nome
+        petNovo.porte = pet.porte
         petNovo.dtNasc = pet.dtNasc
         petNovo.cor = pet.cor
-        petNovo.tipo = pet.tipo
-        petNovo.porte = pet.porte
-
     }
 
 }

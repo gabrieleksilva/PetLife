@@ -2,15 +2,12 @@ package br.edu.scl.ifsp.ads.pdm.petlife
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import br.edu.scl.ifsp.ads.pdm.petlife.MainActivity.Constantes.PARAMETRO_DADOS
 import br.edu.scl.ifsp.ads.pdm.petlife.databinding.ActivityDadosPetBinding
 
 class DadosPetActivity : AppCompatActivity() {
-    private val adb: ActivityDadosPetBinding by lazy{
+    private val adb: ActivityDadosPetBinding by lazy {
         ActivityDadosPetBinding.inflate(layoutInflater)
     }
     private var tipoAnimal: String = " "
@@ -24,6 +21,20 @@ class DadosPetActivity : AppCompatActivity() {
             adb.nomeEt.setText(parametro.nome)
             adb.dataEt.setText(parametro.dtNasc)
             adb.corEt.setText(parametro.cor)
+            tipoAnimal = parametro.tipo
+            porteAnimal = parametro.porte
+            when (parametro.tipo) {
+                adb.cachorroRb.text.toString() -> adb.especieRg.check(adb.cachorroRb.id)
+                adb.gatoRb.text.toString() -> adb.especieRg.check(adb.gatoRb.id)
+                else -> ""
+            }
+
+            when (parametro.porte) {
+                adb.pequenoRb.text.toString() -> adb.tamanhoRg.check(adb.pequenoRb.id)
+                adb.medioRb.text.toString() -> adb.tamanhoRg.check(adb.medioRb.id)
+                adb.grandeRb.text.toString() -> adb.tamanhoRg.check(adb.grandeRb.id)
+                else -> ""
+            }
         }
 
         adb.especieRg.setOnCheckedChangeListener { group, checkedId ->
@@ -33,40 +44,35 @@ class DadosPetActivity : AppCompatActivity() {
                 else -> ""  // Nenhum botão selecionado
             }
         }
-        adb.porteSp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                porteAnimal= (view as TextView).text.toString()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                //TODO("Not yet implemented")
+        adb.tamanhoRg.setOnCheckedChangeListener { group, checkedId ->
+            porteAnimal = when (checkedId) {
+                R.id.pequenoRb -> adb.pequenoRb.text.toString()
+                R.id.medioRb -> adb.medioRb.text.toString()
+                R.id.grandeRb -> adb.grandeRb.text.toString()
+                else -> ""  // Nenhum botão selecionado
             }
         }
 
-        //with(adb) {
-            adb.salvarDadosBt.setOnClickListener {
+
+        with(adb) {
+            salvarDadosBt.setOnClickListener {
 
                 val dadosPet: Pet = Pet(
-                    nome = adb.nomeEt.text.toString(),
-                    dtNasc = adb.dataEt.text.toString(),
+                    nome = nomeEt.text.toString(),
+                    dtNasc = dataEt.text.toString(),
                     tipo = tipoAnimal,
-                    cor = adb.corEt.text.toString(),
+                    cor = corEt.text.toString(),
                     porte = porteAnimal
-                    )
+                )
 
                 //criando uma Intent
                 Intent().apply {
-                        putExtra(PARAMETRO_DADOS, dadosPet)
+                    putExtra(PARAMETRO_DADOS, dadosPet)
                     setResult(RESULT_OK, this)
                 }
                 finish()
 
             }
-        //}
+        }
     }
 }
