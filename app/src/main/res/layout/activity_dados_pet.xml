@@ -96,7 +96,6 @@
             android:layout_height="wrap_content"
             android:text="Porte"
             android:padding="5dp"
-            android:layout_margin="5dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/corEt" />
@@ -107,8 +106,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="left"
-            android:padding="5dp"
-            android:layout_margin="5dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/especieTv">
