@@ -124,10 +124,14 @@ class MainActivity : AppCompatActivity() {
         amb.nomeTv.text = pet.nome
         amb.dataTv.text = pet.dtNasc
         amb.corTv.text = pet.cor
+        amb.especieTv.text = pet.tipo
+        amb.porteSp.text = pet.porte
 
         petNovo.nome = pet.nome
         petNovo.dtNasc = pet.dtNasc
         petNovo.cor = pet.cor
+        petNovo.tipo = pet.tipo
+        petNovo.porte = pet.porte
 
     }
 
