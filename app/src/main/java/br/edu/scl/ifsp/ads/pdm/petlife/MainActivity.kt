@@ -1,9 +1,15 @@
 package br.edu.scl.ifsp.ads.pdm.petlife
 
+import android.Manifest.permission.CALL_PHONE
 import android.content.Intent
+import android.content.Intent.ACTION_CALL
+import android.content.Intent.ACTION_VIEW
+import android.content.pm.PackageManager.PERMISSION_GRANTED
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var parl: ActivityResultLauncher<Intent>
+    private lateinit var pcarl: ActivityResultLauncher<String>
+    private lateinit var piarl: ActivityResultLauncher<Intent>
     private lateinit var varl: ActivityResultLauncher<Intent>
     private lateinit var petarl: ActivityResultLauncher<Intent>
     private lateinit var dadosarl: ActivityResultLauncher<Intent>
@@ -32,11 +40,34 @@ class MainActivity : AppCompatActivity() {
         cor = "",
         porte = ""
     )
+    private var dadosVisita: UltimaVisitaVet = UltimaVisitaVet(
+        dataUltimaVisita = "",
+        telefone = "",
+        site = ""
+    )
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(amb.root)
         setSupportActionBar(amb.toolbarIn.toolbar)
+
+        piarl = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { resultado ->
+            if (resultado.resultCode == RESULT_OK) {
+                resultado.data?.data?.let {
+                    startActivity(Intent(ACTION_VIEW, it))
+                }
+            }
+        }
+        pcarl = registerForActivityResult(ActivityResultContracts.RequestPermission())
+        { permissaoConcedida ->
+            if (permissaoConcedida) {
+                chamarOuDiscar(true)
+            }
+            else {
+                Toast.makeText(this, "Permissão necessária!", Toast.LENGTH_SHORT).show()
+            }
+        }
         parl =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == RESULT_OK) {
@@ -49,8 +80,9 @@ class MainActivity : AppCompatActivity() {
         varl =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == RESULT_OK) {
-                    result.data?.getStringExtra(PARAMETRO_VET)?.let {
-                        amb.dataVetTv.text = it
+                    result.data?.getParcelableExtra<UltimaVisitaVet>(PARAMETRO_VET)?.let { dados ->
+                        preencherDadosVetMain(dados)
+                        preencheCamposDadosVeterinario(dados)
                     }
                 }
             }
@@ -74,6 +106,20 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+        amb.ligacaoBt.setOnClickListener{
+            if (checkSelfPermission(CALL_PHONE) == PERMISSION_GRANTED) {
+                chamarOuDiscar(false)
+            }
+            else {
+                pcarl.launch(CALL_PHONE)
+            }
+            true
+        }
+        amb.siteBt.setOnClickListener{
+            val url: Uri = Uri.parse(amb.siteTv.text.toString())
+            val navegadorIntent = Intent(ACTION_VIEW, url)
+            startActivity(navegadorIntent)
+        }
 
     }
 
@@ -104,10 +150,10 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.idaAoVetMi -> {
+
+
                 Intent("ULTIMA_VISITA_VET").apply {
-                    amb.dataVetTv.text.toString().let {
-                        putExtra(PARAMETRO_VET, it)
-                    }
+                    putExtra(PARAMETRO_VET, dadosVisita)
                     varl.launch(this)
                 }
                 true
@@ -146,4 +192,24 @@ class MainActivity : AppCompatActivity() {
         petNovo.cor = pet.cor
     }
 
+    private fun preencherDadosVetMain(dados: UltimaVisitaVet) {
+        amb.dataVetTv.text = dados.dataUltimaVisita
+        amb.telefoneTv.text = dados.telefone
+        amb.siteTv.text = dados.site
+    }
+
+    private fun preencheCamposDadosVeterinario(dados: UltimaVisitaVet) {
+        dadosVisita.dataUltimaVisita = dados.dataUltimaVisita
+        dadosVisita.telefone = dados.telefone
+        dadosVisita.site = dados.site
+    }
+
+    private fun chamarOuDiscar(chamar: Boolean){
+        Uri.parse("tel: ${amb.telefoneTv.text.toString()}").let{
+            val discarIntent = Intent(if(chamar) ACTION_CALL else ACTION_CALL).apply {
+                data = it
+                startActivity(this)
+            }
+        }
+    }
 }
