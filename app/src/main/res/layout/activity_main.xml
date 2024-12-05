@@ -1,269 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity" >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <include
+        android:id="@+id/toolbarIn"
+        layout="@layout/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <include
-            android:id="@+id/toolbarIn"
-            layout="@layout/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tituloNomeTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nome"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbarIn" />
-
-        <TextView
-            android:id="@+id/nomeTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:padding="5dp"
-            android:inputType="text"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tituloNomeTv" />
-
-        <TextView
-            android:id="@+id/tituloDataNascTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Data de nascimento"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nomeTv" />
-
-        <TextView
-            android:id="@+id/dataTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:padding="5dp"
-            android:inputType="date"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tituloDataNascTv" />
-
-        <TextView
-            android:id="@+id/tituloEspecieTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Especie"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dataTv" />
-
-        <TextView
-            android:id="@+id/especieTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:gravity="left"
-            android:orientation="vertical"
-            android:padding="5dp"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tituloEspecieTv">
-
-        </TextView>
-
-        <LinearLayout
-            android:id="@+id/porteLl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="5dp"
-            android:visibility="visible"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/corTv">
-
-            <TextView
-                android:id="@+id/tituloPorteTv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Porte"
-                android:textSize="20sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/corTv" />
-
-            <TextView
-                android:id="@+id/porteTv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:padding="5dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tituloPorteTv" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tituloCorTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cor"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/especieTv" />
-
-        <TextView
-            android:id="@+id/corTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:inputType="text"
-            android:padding="5dp"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tituloCorTv" />
+    <ListView
+        android:id="@+id/petsLv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbarIn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
-        <TextView
-            android:id="@+id/tituloVetTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Ultima ida ao veterinario"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/porteLl" />
-
-        <TextView
-            android:id="@+id/dataVetTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Data"
-            android:inputType="date"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tituloVetTv" />
-
-        <TextView
-            android:id="@+id/tituloVacinaTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Ultima vacinacao"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dataVetTv" />
-
-        <TextView
-            android:id="@+id/dataVacinaTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Data"
-            android:inputType="date"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tituloVacinaTv" />
-
-        <TextView
-            android:id="@+id/tituloPetShopTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Ultima ida ao petshop"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dataVacinaTv" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <TextView
-            android:id="@+id/dataPetShopTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Data"
-            android:inputType="date"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tituloPetShopTv" />
-        <TextView
-            android:id="@+id/tituloTelefoneTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Telefone"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dataPetShopTv" />
-        <TextView
-            android:id="@+id/telefoneTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Telefone"
-            android:inputType="text"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tituloTelefoneTv" />
-        <Button
-            android:id="@+id/ligacaoBt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/telefoneTv"
-            android:text="Ligar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-        <TextView
-            android:id="@+id/tituloSiteTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Site"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ligacaoBt" />
-        <TextView
-            android:id="@+id/siteTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Site"
-            android:inputType="text"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tituloSiteTv" />
 
-        <Button
-            android:id="@+id/siteBt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/siteTv"
-            android:text="Acessar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PetLife</string>
+    <string name="especie">Espécie</string>
+    <string name="nome">Nome</string>
 </resources>
