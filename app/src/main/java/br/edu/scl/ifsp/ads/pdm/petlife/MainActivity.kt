@@ -1,17 +1,11 @@
 package br.edu.scl.ifsp.ads.pdm.petlife
 
-import android.Manifest.permission.CALL_PHONE
 import android.content.Intent
-import android.content.Intent.ACTION_CALL
-import android.content.Intent.ACTION_VIEW
-import android.content.pm.PackageManager.PERMISSION_GRANTED
-import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+import android.widget.ArrayAdapter
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import br.edu.scl.ifsp.ads.pdm.petlife.databinding.ActivityMainBinding
 
@@ -46,12 +40,35 @@ class MainActivity : AppCompatActivity() {
         site = ""
     )
 
+    // Data source
+    private val petList: MutableList<Pet> = mutableListOf()
+
+    //Adapter
+    private val petAdapter: ArrayAdapter<String> by lazy {
+
+
+        ArrayAdapter(
+            this,
+            android.R.layout.simple_list_item_1,
+            petList.run{
+                val petTitleList: MutableList<String> = mutableListOf()
+                this.forEach{ petTitleList.add(it.nome)}
+                petTitleList
+            }
+        )
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(amb.root)
-        setSupportActionBar(amb.toolbarIn.toolbar)
-
+        amb.toolbarIn.toolbar.let{
+            it.subtitle = getString(R.string.pet_list)
+            setSupportActionBar(it)
+        }
+        fillPetList()
+        amb.petsLv.adapter =  petAdapter
+/*
         piarl = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { resultado ->
             if (resultado.resultCode == RESULT_OK) {
                 resultado.data?.data?.let {
@@ -59,20 +76,12 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        pcarl = registerForActivityResult(ActivityResultContracts.RequestPermission())
-        { permissaoConcedida ->
-            if (permissaoConcedida) {
-                chamarOuDiscar(true)
-            }
-            else {
-                Toast.makeText(this, "Permissão necessária!", Toast.LENGTH_SHORT).show()
-            }
-        }
+
         parl =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == RESULT_OK) {
                     result.data?.getStringExtra(PARAMETRO_VACINA)?.let {
-                        amb.dataVacinaTv.text = it
+//                        amb.dataVacinaTv.text = it
                     }
                 }
             }
@@ -91,7 +100,7 @@ class MainActivity : AppCompatActivity() {
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == RESULT_OK) {
                     result.data?.getStringExtra(PARAMETRO_PETSHOP)?.let {
-                        amb.dataPetShopTv.text = it
+//                        amb.dataPetShopTv.text = it
                     }
                 }
             }
@@ -106,20 +115,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-        amb.ligacaoBt.setOnClickListener{
-            if (checkSelfPermission(CALL_PHONE) == PERMISSION_GRANTED) {
-                chamarOuDiscar(false)
-            }
-            else {
-                pcarl.launch(CALL_PHONE)
-            }
-            true
-        }
-        amb.siteBt.setOnClickListener{
-            val url: Uri = Uri.parse(amb.siteTv.text.toString())
-            val navegadorIntent = Intent(ACTION_VIEW, url)
-            startActivity(navegadorIntent)
-        }
+*/
 
     }
 
@@ -140,12 +136,12 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.vacinacaoMi -> {
-                Intent("ULTIMA_VACINA").apply {
+                /*Intent("ULTIMA_VACINA").apply {
                     amb.dataVacinaTv.text.toString().let {
                         putExtra(PARAMETRO_VACINA, it)
                     }
                     parl.launch(this)
-                }
+                }*/
                 true
             }
 
@@ -160,12 +156,12 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.petshopMi -> {
-                Intent("ULTIMA_VISITA_PETSHOP").apply {
+                /*Intent("ULTIMA_VISITA_PETSHOP").apply {
                     amb.dataPetShopTv.text.toString().let {
                         putExtra(PARAMETRO_PETSHOP, it)
                     }
                     petarl.launch(this)
-                }
+                }*/
                 true
             }
 
@@ -177,11 +173,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun preencheCamposMain(pet: Pet) {
-        amb.nomeTv.text = pet.nome
+        /*amb.nomeTv.text = pet.nome
         amb.dataTv.text = pet.dtNasc
         amb.corTv.text = pet.cor
         amb.especieTv.text = pet.tipo
-        amb.porteTv.text = pet.porte
+        amb.porteTv.text = pet.porte*/
     }
 
     private fun preencheCamposDadosPet(pet: Pet) {
@@ -193,9 +189,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun preencherDadosVetMain(dados: UltimaVisitaVet) {
-        amb.dataVetTv.text = dados.dataUltimaVisita
+        /*amb.dataVetTv.text = dados.dataUltimaVisita
         amb.telefoneTv.text = dados.telefone
-        amb.siteTv.text = dados.site
+        amb.siteTv.text = dados.site*/
     }
 
     private fun preencheCamposDadosVeterinario(dados: UltimaVisitaVet) {
@@ -203,13 +199,19 @@ class MainActivity : AppCompatActivity() {
         dadosVisita.telefone = dados.telefone
         dadosVisita.site = dados.site
     }
-
-    private fun chamarOuDiscar(chamar: Boolean){
-        Uri.parse("tel: ${amb.telefoneTv.text.toString()}").let{
-            val discarIntent = Intent(if(chamar) ACTION_CALL else ACTION_CALL).apply {
-                data = it
-                startActivity(this)
-            }
+    private fun fillPetList(){
+        for (index in 1..20){
+            //populando a lista com valores estaticos
+            petList.add(
+                Pet(
+                    "Nome $index",
+                    "Data Nasc $index",
+                    "Tipo $index",
+                    "Cord $index",
+                    "Porte $index"
+                )
+            )
         }
     }
+
 }
