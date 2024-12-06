@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import br.edu.scl.ifsp.ads.pdm.petlife.databinding.ActivityMainBinding
 
@@ -68,54 +69,52 @@ class MainActivity : AppCompatActivity() {
         }
         fillPetList()
         amb.petsLv.adapter =  petAdapter
-/*
-        piarl = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { resultado ->
-            if (resultado.resultCode == RESULT_OK) {
-                resultado.data?.data?.let {
-                    startActivity(Intent(ACTION_VIEW, it))
-                }
-            }
-        }
-
-        parl =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == RESULT_OK) {
-                    result.data?.getStringExtra(PARAMETRO_VACINA)?.let {
-//                        amb.dataVacinaTv.text = it
-                    }
-                }
-            }
-
-        varl =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == RESULT_OK) {
-                    result.data?.getParcelableExtra<UltimaVisitaVet>(PARAMETRO_VET)?.let { dados ->
-                        preencherDadosVetMain(dados)
-                        preencheCamposDadosVeterinario(dados)
-                    }
-                }
-            }
-
-        petarl =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == RESULT_OK) {
-                    result.data?.getStringExtra(PARAMETRO_PETSHOP)?.let {
-//                        amb.dataPetShopTv.text = it
-                    }
-                }
-            }
-
+//        piarl = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { resultado ->
+//            if (resultado.resultCode == RESULT_OK) {
+//                resultado.data?.data?.let {
+//                    startActivity(Intent(ACTION_VIEW, it))
+//                }
+//            }
+//        }
+//
+//        parl =
+//            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+//                if (result.resultCode == RESULT_OK) {
+//                    result.data?.getStringExtra(PARAMETRO_VACINA)?.let {
+////                        amb.dataVacinaTv.text = it
+//                    }
+//                }
+//            }
+//
+//        varl =
+//            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+//                if (result.resultCode == RESULT_OK) {
+//                    result.data?.getParcelableExtra<UltimaVisitaVet>(PARAMETRO_VET)?.let { dados ->
+//                        preencherDadosVetMain(dados)
+//                        preencheCamposDadosVeterinario(dados)
+//                    }
+//                }
+//            }
+//
+//        petarl =
+//            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+//                if (result.resultCode == RESULT_OK) {
+//                    result.data?.getStringExtra(PARAMETRO_PETSHOP)?.let {
+////                        amb.dataPetShopTv.text = it
+//                    }
+//                }
+//            }
+//
         dadosarl =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == RESULT_OK) {
 
                     result.data?.getParcelableExtra<Pet>(PARAMETRO_DADOS)?.let { pet ->
-                        preencheCamposMain(pet)
+                        //preencheCamposMain(pet)
                         preencheCamposDadosPet(pet)
                     }
                 }
             }
-*/
 
     }
 
@@ -127,7 +126,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.dadosMi -> {
+            R.id.viewMi -> {
                 Intent("DADOS_PET").apply {
                     putExtra(PARAMETRO_DADOS, petNovo)
                     dadosarl.launch(this)
@@ -135,35 +134,6 @@ class MainActivity : AppCompatActivity() {
                 true
             }
 
-            R.id.vacinacaoMi -> {
-                /*Intent("ULTIMA_VACINA").apply {
-                    amb.dataVacinaTv.text.toString().let {
-                        putExtra(PARAMETRO_VACINA, it)
-                    }
-                    parl.launch(this)
-                }*/
-                true
-            }
-
-            R.id.idaAoVetMi -> {
-
-
-                Intent("ULTIMA_VISITA_VET").apply {
-                    putExtra(PARAMETRO_VET, dadosVisita)
-                    varl.launch(this)
-                }
-                true
-            }
-
-            R.id.petshopMi -> {
-                /*Intent("ULTIMA_VISITA_PETSHOP").apply {
-                    amb.dataPetShopTv.text.toString().let {
-                        putExtra(PARAMETRO_PETSHOP, it)
-                    }
-                    petarl.launch(this)
-                }*/
-                true
-            }
 
             else -> {
                 false
@@ -172,13 +142,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun preencheCamposMain(pet: Pet) {
-        /*amb.nomeTv.text = pet.nome
+    /*private fun preencheCamposMain(pet: Pet) {
+        amb.nomeTv.text = pet.nome
         amb.dataTv.text = pet.dtNasc
         amb.corTv.text = pet.cor
         amb.especieTv.text = pet.tipo
-        amb.porteTv.text = pet.porte*/
-    }
+        amb.porteTv.text = pet.porte
+    }*/
 
     private fun preencheCamposDadosPet(pet: Pet) {
         petNovo.tipo = pet.tipo

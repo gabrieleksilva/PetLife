@@ -4,22 +4,8 @@
     <item
         android:id="@+id/viewMi"
         android:icon="@drawable/ic_action_name"
-        android:title="Editar informações do pet"
+        android:title="Adicionar Pet"
         app:showAsAction="always" >
-        <menu>
-            <item
-                android:id="@+id/dadosMi"
-                android:title="Dados do pet" />
-            <item
-                android:id="@+id/idaAoVetMi"
-                android:title="Ultima ida ao vet" />
-            <item
-                android:id="@+id/vacinacaoMi"
-                android:title="Ultima vacinacao" />
-            <item
-                android:id="@+id/petshopMi"
-                android:title="Ultima ida ao petshop" />
-        </menu>
     </item>
 
 </menu>
