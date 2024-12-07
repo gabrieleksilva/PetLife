@@ -2,10 +2,13 @@ package br.edu.scl.ifsp.ads.pdm.petlife.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.View.GONE
 import androidx.appcompat.app.AppCompatActivity
 import br.edu.scl.ifsp.ads.pdm.petlife.R
 
 import br.edu.scl.ifsp.ads.pdm.petlife.databinding.ActivityDadosPetBinding
+import br.edu.scl.ifsp.ads.pdm.petlife.model.Constant
 import br.edu.scl.ifsp.ads.pdm.petlife.model.Constant.PARAMETRO_DADOS
 import br.edu.scl.ifsp.ads.pdm.petlife.model.Pet
 
@@ -18,41 +21,59 @@ class DadosPetActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(adb.root)
-        setSupportActionBar(adb.toolbarIn.toolbar)
 
-        intent.getParcelableExtra<Pet>(PARAMETRO_DADOS)?.also { parametro ->
-            adb.nomeEt.setText(parametro.nome)
-            adb.dataEt.setText(parametro.dtNasc)
-            adb.corEt.setText(parametro.cor)
-            tipoAnimal = parametro.tipo
-            porteAnimal = parametro.porte
-            when (parametro.tipo) {
-                adb.cachorroRb.text.toString() -> adb.especieRg.check(adb.cachorroRb.id)
-                adb.gatoRb.text.toString() -> adb.especieRg.check(adb.gatoRb.id)
-                else -> ""
-            }
+        val viewMode = intent.getBooleanExtra(Constant.VIEW_MODE, false)
+        val receivedPet = intent.getParcelableExtra<Pet>(PARAMETRO_DADOS)
 
-            when (parametro.porte) {
-                adb.pequenoRb.text.toString() -> adb.tamanhoRg.check(adb.pequenoRb.id)
-                adb.medioRb.text.toString() -> adb.tamanhoRg.check(adb.medioRb.id)
-                adb.grandeRb.text.toString() -> adb.tamanhoRg.check(adb.grandeRb.id)
-                else -> ""
+        receivedPet?.let { pet ->
+            with(adb) {
+                // Preenchendo os campos com os dados recebidos
+                nomeEt.setText(pet.nome)
+                dataEt.setText(pet.dtNasc)
+                corEt.setText(pet.cor)
+
+                // Configurando os botões de rádio com base no tipo e porte
+                when (pet.tipo) {
+                    cachorroRb.text.toString() -> especieRg.check(cachorroRb.id)
+                    gatoRb.text.toString() -> especieRg.check(gatoRb.id)
+                }
+                when (pet.porte) {
+                    pequenoRb.text.toString() -> tamanhoRg.check(pequenoRb.id)
+                    medioRb.text.toString() -> tamanhoRg.check(medioRb.id)
+                    grandeRb.text.toString() -> tamanhoRg.check(grandeRb.id)
+                }
             }
         }
 
-        adb.especieRg.setOnCheckedChangeListener { group, checkedId ->
+
+        adb.especieRg.setOnCheckedChangeListener { _, checkedId ->
             tipoAnimal = when (checkedId) {
                 R.id.cachorroRb -> adb.cachorroRb.text.toString()
                 R.id.gatoRb -> adb.gatoRb.text.toString()
-                else -> ""  // Nenhum botão selecionado
+                else -> ""
             }
         }
-        adb.tamanhoRg.setOnCheckedChangeListener { group, checkedId ->
+        adb.tamanhoRg.setOnCheckedChangeListener { _, checkedId ->
             porteAnimal = when (checkedId) {
                 R.id.pequenoRb -> adb.pequenoRb.text.toString()
                 R.id.medioRb -> adb.medioRb.text.toString()
                 R.id.grandeRb -> adb.grandeRb.text.toString()
-                else -> ""  // Nenhum botão selecionado
+                else -> ""
+            }
+        }
+
+        adb.salvarDadosBt.setOnClickListener {
+            val pet = Pet(
+                adb.nomeEt.text.toString(),
+                adb.dataEt.text.toString(),
+                tipoAnimal,
+                adb.corEt.text.toString(),
+                porteAnimal
+            )
+            Intent().apply {
+                putExtra(PARAMETRO_DADOS, pet)
+                setResult(RESULT_OK, this)
+                finish()
             }
         }
 
@@ -76,6 +97,14 @@ class DadosPetActivity : AppCompatActivity() {
                 finish()
 
             }
+        }
+        adb.run {
+            nomeEt.isEnabled = !viewMode
+            dataEt.isEnabled = !viewMode
+            corEt.isEnabled = !viewMode
+            especieRg.isEnabled = !viewMode
+            tamanhoRg.isEnabled = !viewMode
+            salvarDadosBt.visibility = if (viewMode) GONE else View.VISIBLE
         }
     }
 }
