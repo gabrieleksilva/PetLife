@@ -2,5 +2,5 @@
     <string name="app_name">PetLife</string>
     <string name="especie">Espécie</string>
     <string name="nome">Nome</string>
-    <string name="pet_list" />
+    <string name="pet_list" >Pet List</string>
 </resources>
