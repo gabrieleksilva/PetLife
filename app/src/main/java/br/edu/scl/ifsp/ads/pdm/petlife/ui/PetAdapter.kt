@@ -35,8 +35,21 @@ class PetAdapter (context: Context,
 
             petTile = tpb.root
 
+
+            val newPetTileHolder = PetTileHolder(
+                tpb.nameTv,
+                tpb.typeTv
+            )
+
+            petTile.tag = newPetTileHolder
+        }
+        // preenche os valores da celula com o novo pet
+        val holder = petTile?.tag as PetTileHolder
+        holder?.let {
+            it.nameTv.text = pet.nome
+            it.typeTv.text = pet.tipo
         }
 
-        return super.getView(position, convertView, parent)
+        return petTile
     }
 }
