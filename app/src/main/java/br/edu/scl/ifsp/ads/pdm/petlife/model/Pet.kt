@@ -1,4 +1,4 @@
-package br.edu.scl.ifsp.ads.pdm.petlife;
+package br.edu.scl.ifsp.ads.pdm.petlife.model;
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

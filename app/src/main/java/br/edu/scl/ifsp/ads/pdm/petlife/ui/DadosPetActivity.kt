@@ -1,10 +1,12 @@
-package br.edu.scl.ifsp.ads.pdm.petlife
+package br.edu.scl.ifsp.ads.pdm.petlife.ui
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import br.edu.scl.ifsp.ads.pdm.petlife.MainActivity.Constantes.PARAMETRO_DADOS
+import br.edu.scl.ifsp.ads.pdm.petlife.R
+import br.edu.scl.ifsp.ads.pdm.petlife.ui.MainActivity.Constantes.PARAMETRO_DADOS
 import br.edu.scl.ifsp.ads.pdm.petlife.databinding.ActivityDadosPetBinding
+import br.edu.scl.ifsp.ads.pdm.petlife.model.Pet
 
 class DadosPetActivity : AppCompatActivity() {
     private val adb: ActivityDadosPetBinding by lazy {

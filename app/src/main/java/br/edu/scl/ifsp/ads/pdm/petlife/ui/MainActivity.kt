@@ -1,4 +1,4 @@
-package br.edu.scl.ifsp.ads.pdm.petlife
+package br.edu.scl.ifsp.ads.pdm.petlife.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,9 @@ import android.widget.ArrayAdapter
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import br.edu.scl.ifsp.ads.pdm.petlife.R
 import br.edu.scl.ifsp.ads.pdm.petlife.databinding.ActivityMainBinding
+import br.edu.scl.ifsp.ads.pdm.petlife.model.Pet
 
 class MainActivity : AppCompatActivity() {
     private val amb: ActivityMainBinding by lazy {

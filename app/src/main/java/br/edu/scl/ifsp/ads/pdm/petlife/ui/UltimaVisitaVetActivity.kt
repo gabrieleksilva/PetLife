@@ -1,10 +1,9 @@
-package br.edu.scl.ifsp.ads.pdm.petlife
+package br.edu.scl.ifsp.ads.pdm.petlife.ui
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import br.edu.scl.ifsp.ads.pdm.petlife.MainActivity.Constantes.PARAMETRO_DADOS
-import br.edu.scl.ifsp.ads.pdm.petlife.MainActivity.Constantes.PARAMETRO_VET
+import br.edu.scl.ifsp.ads.pdm.petlife.ui.MainActivity.Constantes.PARAMETRO_VET
 import br.edu.scl.ifsp.ads.pdm.petlife.databinding.ActivityUltimaVisitaVetBinding
 
 class UltimaVisitaVetActivity : AppCompatActivity() {
