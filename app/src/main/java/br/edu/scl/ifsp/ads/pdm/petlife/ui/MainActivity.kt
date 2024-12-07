@@ -2,8 +2,10 @@ package br.edu.scl.ifsp.ads.pdm.petlife.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -57,6 +59,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
+        registerForContextMenu(amb.petsLv) // para chamar o menu flutuante
     }
 
     //criar o menu
@@ -64,6 +67,12 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
+
+    override fun onCreateContextMenu(
+        menu: ContextMenu?,
+        v: View?,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) = menuInflater.inflate(R.menu.context_menu_main, menu)
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
