@@ -3,8 +3,9 @@ package br.edu.scl.ifsp.ads.pdm.petlife.ui
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import br.edu.scl.ifsp.ads.pdm.petlife.ui.MainActivity.Constantes.PARAMETRO_VET
 import br.edu.scl.ifsp.ads.pdm.petlife.databinding.ActivityUltimaVisitaVetBinding
+import br.edu.scl.ifsp.ads.pdm.petlife.model.Constant.PARAMETRO_VET
+import br.edu.scl.ifsp.ads.pdm.petlife.model.UltimaVisitaVet
 
 class UltimaVisitaVetActivity : AppCompatActivity() {
     private val auvet: ActivityUltimaVisitaVetBinding by lazy {
