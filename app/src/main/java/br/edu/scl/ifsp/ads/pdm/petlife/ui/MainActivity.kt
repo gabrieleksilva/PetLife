@@ -1,6 +1,7 @@
 package br.edu.scl.ifsp.ads.pdm.petlife.ui
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.ContextMenu
 import android.view.Menu
@@ -11,6 +12,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import br.edu.scl.ifsp.ads.pdm.petlife.R
+import br.edu.scl.ifsp.ads.pdm.petlife.controller.MainController
 import br.edu.scl.ifsp.ads.pdm.petlife.databinding.ActivityMainBinding
 import br.edu.scl.ifsp.ads.pdm.petlife.model.Constant
 import br.edu.scl.ifsp.ads.pdm.petlife.model.Constant.PARAMETRO_DADOS
@@ -31,6 +33,10 @@ class MainActivity : AppCompatActivity() {
         porte = ""
     )
 
+    //Controller
+    private val mainController: MainController by lazy{
+        MainController(this)
+    }
 
     // Data source
     private val petList: MutableList<Pet> = mutableListOf()
@@ -52,11 +58,25 @@ class MainActivity : AppCompatActivity() {
 
         dadosarl =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == RESULT_OK) {
+                if (result.resultCode == RESULT_OK){
+                    val book = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU){
+                        result.data?.getParcelableExtra<Pet>(PARAMETRO_DADOS)
+                    } else{
+                        result.data?.getParcelableExtra(PARAMETRO_DADOS, Pet::class.java)
+                    }
+                    book?.let { receivedBook ->
 
-                    result.data?.getParcelableExtra<Pet>(PARAMETRO_DADOS)?.let { pet ->
-                        //preencheCamposMain(pet)
-                        preencheCamposDadosPet(pet)
+                        val position = petList.indexOfFirst { it.nome == receivedBook.nome }
+                        if(position == -1){
+                            petList.add(receivedBook)
+                            mainController.insertPet(receivedBook)
+                        }
+                        else{
+                            petList[position] = receivedBook
+                            mainController.modifyPet(receivedBook)
+                        }
+
+                        petAdapter.notifyDataSetChanged() // avisa a view que teve um novo elemento adicionado a lista
                     }
                 }
             }

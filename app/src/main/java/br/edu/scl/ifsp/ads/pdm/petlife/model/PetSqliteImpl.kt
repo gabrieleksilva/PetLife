@@ -1,5 +1,6 @@
 package br.edu.scl.ifsp.ads.pdm.petlife.model
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.database.sqlite.SQLiteDatabase
@@ -41,9 +42,8 @@ class PetSqliteImpl(context: Context) :PetDao {
         }
     }
 
-    override fun createPet(pet: Pet): Long {
-        TODO("Not yet implemented")
-    }
+    override fun createPet(pet: Pet) =
+        petDatabase.insert(PET_TABLE, null, petToContentValues(pet))
 
     override fun retrievePet(nome: String): Pet {
         TODO("Not yet implemented")
@@ -60,4 +60,15 @@ class PetSqliteImpl(context: Context) :PetDao {
     override fun deletePet(nome: String): Int {
         TODO("Not yet implemented")
     }
+    private fun petToContentValues(pet: Pet) = ContentValues().apply {
+        with(pet) {
+            put(NAME_COLUMN, nome)
+            put(DATE_NASC_COLUMN, dtNasc)
+            put(TYPE_PET_COLUMN, tipo)
+            put(SIZE_PET_COLUMN, porte)
+            put(COLOR_PET_COLUMN, cor)
+        }
+    }
+
+
 }
