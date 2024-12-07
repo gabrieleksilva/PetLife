@@ -98,7 +98,15 @@ class MainActivity : AppCompatActivity() {
         val position = (item.menuInfo as AdapterContextMenuInfo).position
 
         return when(item.itemId){
-
+            R.id.editarPetMi ->{
+                //Chamar a tela de edição
+                Intent(this, DadosPetActivity::class.java).apply {
+                    putExtra(PARAMETRO_DADOS, petList[position])
+                    putExtra(Constant.VIEW_MODE, false)
+                    dadosarl.launch(this)
+                }
+                true
+            }
             R.id.removerPetMi ->{
                 petList.removeAt(position)//Remove o item da lista
                 petAdapter.notifyDataSetChanged() //avisando o adapter que foi removido
