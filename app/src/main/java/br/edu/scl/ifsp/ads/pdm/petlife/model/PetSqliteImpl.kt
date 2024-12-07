@@ -53,13 +53,18 @@ class PetSqliteImpl(context: Context) :PetDao {
         TODO("Not yet implemented")
     }
 
-    override fun updatePet(pet: Pet): Int {
-        TODO("Not yet implemented")
-    }
+    override fun updatePet(pet: Pet) = petDatabase.update(
+        PET_TABLE,
+        petToContentValues(pet),
+        "$NAME_COLUMN = ?",
+        arrayOf(pet.nome)
+    )
 
-    override fun deletePet(nome: String): Int {
-        TODO("Not yet implemented")
-    }
+    override fun deletePet(nome: String) = petDatabase.delete(
+        PET_TABLE,
+        "$NAME_COLUMN = ?",
+        arrayOf(nome))
+
     private fun petToContentValues(pet: Pet) = ContentValues().apply {
         with(pet) {
             put(NAME_COLUMN, nome)

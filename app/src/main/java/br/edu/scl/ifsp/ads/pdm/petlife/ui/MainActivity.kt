@@ -59,21 +59,22 @@ class MainActivity : AppCompatActivity() {
         dadosarl =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == RESULT_OK){
-                    val book = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU){
+                    val pet = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU){
                         result.data?.getParcelableExtra<Pet>(PARAMETRO_DADOS)
                     } else{
                         result.data?.getParcelableExtra(PARAMETRO_DADOS, Pet::class.java)
                     }
-                    book?.let { receivedBook ->
-
-                        val position = petList.indexOfFirst { it.nome == receivedBook.nome }
+                    pet?.let { receivedPet ->
+                       // Se o pet não existir, ele é adicionado à lista
+                        val position = petList.indexOfFirst { it.nome == receivedPet.nome }
                         if(position == -1){
-                            petList.add(receivedBook)
-                            mainController.insertPet(receivedBook)
+                            petList.add(receivedPet)
+                            mainController.insertPet(receivedPet)
                         }
+                        //Se já existir, o pet na lista é atualizado
                         else{
-                            petList[position] = receivedBook
-                            mainController.modifyPet(receivedBook)
+                             petList[position] = receivedPet
+                             mainController.modifyPet(receivedPet)
                         }
 
                         petAdapter.notifyDataSetChanged() // avisa a view que teve um novo elemento adicionado a lista
@@ -128,6 +129,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.removerPetMi ->{
+                mainController.removePet(petList[position].nome)
                 petList.removeAt(position)//Remove o item da lista
                 petAdapter.notifyDataSetChanged() //avisando o adapter que foi removido
                 true
