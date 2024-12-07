@@ -6,11 +6,13 @@ import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView.AdapterContextMenuInfo
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import br.edu.scl.ifsp.ads.pdm.petlife.R
 import br.edu.scl.ifsp.ads.pdm.petlife.databinding.ActivityMainBinding
+import br.edu.scl.ifsp.ads.pdm.petlife.model.Constant
 import br.edu.scl.ifsp.ads.pdm.petlife.model.Constant.PARAMETRO_DADOS
 import br.edu.scl.ifsp.ads.pdm.petlife.model.Pet
 
@@ -90,6 +92,22 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        val position = (item.menuInfo as AdapterContextMenuInfo).position
+
+        return when(item.itemId){
+
+            R.id.removerPetMi ->{
+                petList.removeAt(position)//Remove o item da lista
+                petAdapter.notifyDataSetChanged() //avisando o adapter que foi removido
+                true
+            }
+            else -> {
+                false
+            }
+        }
     }
 
 
