@@ -162,12 +162,13 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun fillPetList() {
-        val pets = mainController.getPets()
-        runOnUiThread {
-            petList.clear()
-            petList.addAll(pets)
-            petAdapter.notifyDataSetChanged()
-        }
+        Thread{
+            runOnUiThread{
+                petList.clear()
+                petList.addAll(mainController.getPets())
+                petAdapter.notifyDataSetChanged()
+            }
+        }.start()
     }
 
 }
