@@ -1,68 +1,57 @@
 package br.edu.scl.ifsp.ads.pdm.petlife.ui
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import br.edu.scl.ifsp.ads.pdm.petlife.R
 import br.edu.scl.ifsp.ads.pdm.petlife.databinding.ActivityUltimaVisitaVetBinding
-import br.edu.scl.ifsp.ads.pdm.petlife.model.Constant.PARAMETRO_VET
-import br.edu.scl.ifsp.ads.pdm.petlife.model.UltimaVisitaVet
+import br.edu.scl.ifsp.ads.pdm.petlife.model.Constant.EVENT_LIST
+import br.edu.scl.ifsp.ads.pdm.petlife.model.Event
 
 class UltimaVisitaVetActivity : AppCompatActivity() {
     private val auvet: ActivityUltimaVisitaVetBinding by lazy {
         ActivityUltimaVisitaVetBinding.inflate(layoutInflater)
     }
+    private var eventoPet: String = " "
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(auvet.root)
-        setSupportActionBar(auvet.toolbarIn.toolbar)
 
 
-        intent.getParcelableExtra<UltimaVisitaVet>(PARAMETRO_VET)?.also { parametro ->
-            auvet.dataEt.setText(parametro.dataUltimaVisita)
-            auvet.telefoneEt.setText(parametro.telefone)
-            auvet.siteEt.setText(parametro.site)
+        val receivedEvent = intent.getParcelableExtra<Event>(EVENT_LIST)
 
-//            when (parametro.tipo) {
-//                adb.cachorroRb.text.toString() -> adb.especieRg.check(adb.cachorroRb.id)
-//                adb.gatoRb.text.toString() -> adb.especieRg.check(adb.gatoRb.id)
-//                else -> ""
-//            }
-//
-//            when (parametro.porte) {
-//                adb.pequenoRb.text.toString() -> adb.tamanhoRg.check(adb.pequenoRb.id)
-//                adb.medioRb.text.toString() -> adb.tamanhoRg.check(adb.medioRb.id)
-//                adb.grandeRb.text.toString() -> adb.tamanhoRg.check(adb.grandeRb.id)
-//                else -> ""
-//            }
-        }
+        receivedEvent?.let { ultimaVisitaVet ->
+            with(auvet) {
+                dataEt.setText(ultimaVisitaVet.dataEvent)
 
-//        intent.getStringExtra(PARAMETRO_VET)?.also { parametro ->
-//            auvet.dataEt.setText(parametro)
-//        }
+                when (ultimaVisitaVet.descricao) {
+                    vetRb.text.toString() -> {
+                        eventoRg.check(vetRb.id)
+                        eventoPet = vetRb.text.toString()
+                    }
 
-        auvet.ultVisitBt.setOnClickListener {
-//            Intent().apply {
-//                auvet.dataEt.text.toString().let {
-//                    putExtra(PARAMETRO_VET, it)
-//                }
-//                setResult(RESULT_OK, this)
-//            }
-//            finish()
-            val dadosVisitaVet: UltimaVisitaVet = UltimaVisitaVet(
-                dataUltimaVisita = auvet.dataEt.text.toString(),
-                telefone = auvet.telefoneEt.text.toString(),
-                site = auvet.siteEt.text.toString(),
-            )
+                    vacinaRb.text.toString() -> {
+                        eventoRg.check(vacinaRb.id)
+                        eventoPet = vacinaRb.text.toString()
+                    }
 
-            //criando uma Intent
-            Intent().apply {
-                putExtra(PARAMETRO_VET, dadosVisitaVet)
-                setResult(RESULT_OK, this)
+                    petshopRb.text.toString() -> {
+                        eventoRg.check(petshopRb.id)
+                        eventoPet = petshopRb.text.toString()
+                    }
+                }
             }
-            finish()
-
         }
+
+        auvet.eventoRg.setOnCheckedChangeListener{ _, checkedId ->
+            eventoPet = when (checkedId) {
+                R.id.vetRb -> auvet.vetRb.text.toString()
+                R.id.vacinaRb -> auvet.vacinaRb.text.toString()
+                R.id.petshopRb -> auvet.petshopRb.text.toString()
+                else -> ""
+            }
+        }
+
     }
 
 }

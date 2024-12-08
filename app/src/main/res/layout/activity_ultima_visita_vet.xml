@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Ultima visita ao veterinario"
+        android:text="Ultimo evento"
         android:textColor="@android:color/background_dark"
         android:textSize="30sp"
         app:layout_constraintTop_toBottomOf="@id/toolbarIn"
@@ -38,25 +38,54 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <EditText
-        android:id="@+id/telefoneEt"
+    <LinearLayout
+        android:id="@+id/porteLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="telefone"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@id/dataEt"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:visibility="visible"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dataEt">
 
-    <EditText
-        android:id="@+id/siteEt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="site"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@id/telefoneEt"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        <TextView
+            android:id="@+id/porteTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Evento"
+            android:padding="5dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/eventoRg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="left"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+            <RadioButton
+                android:id="@+id/vetRb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/veterinario" />
+            <RadioButton
+                android:id="@+id/vacinaRb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/vacinacao" />
+            <RadioButton
+                android:id="@+id/petshopRb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/petshop" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+
     <Button
         android:id="@+id/ultVisitBt"
         android:layout_width="match_parent"
