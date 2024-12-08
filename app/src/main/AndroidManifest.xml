@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false" />
+
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
@@ -17,24 +19,17 @@
         android:theme="@style/Theme.PetLife"
         tools:targetApi="31">
         <activity
-            android:name=".ui.UltimaVacinaActivity"
+            android:name=".ui.EventListActivity"
             android:exported="false" >
             <intent-filter>
-                <action android:name="ULTIMA_VACINA" />
+                <action android:name="EVENT_LIST" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.UltimaVisitaPetShopActivity"
-            android:exported="false" >
-            <intent-filter>
-                <action android:name="ULTIMA_VISITA_PETSHOP" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+
         <activity
             android:name=".ui.UltimaVisitaVetActivity"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="ULTIMA_VISITA_VET" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -42,7 +37,7 @@
         </activity>
         <activity
             android:name=".ui.DadosPetActivity"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="DADOS_PET" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -53,7 +48,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
