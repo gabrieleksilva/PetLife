@@ -9,4 +9,5 @@ class EventoController(eventListActivity: EventListActivity) {
     private val petDao: PetDao = PetSqliteImpl(eventListActivity)
 
     fun insertEvent(event: Event, nome: String) = petDao.createEvent(event, nome)
+    fun getEvents(nomePet: String) = petDao.retrieveEvents(nomePet)
 }

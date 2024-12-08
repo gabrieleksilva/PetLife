@@ -96,6 +96,16 @@ class PetSqliteImpl(context: Context) :PetDao {
     override fun createEvent(event: Event, nomePet: String)=
         petDatabase.insert(EVENT_TABLE, null, eventToContentValues(event, nomePet))
 
+    override fun retrieveEvents(nomePet: String): MutableList<Event> {
+        val eventList = mutableListOf<Event>()
+
+        val cursor = petDatabase.rawQuery("SELECT * FROM $EVENT_TABLE WHERE $NAME_COLUMN = ?", arrayOf(nomePet))
+        while (cursor.moveToNext()){
+            eventList.add(cursorToEvent(cursor))
+        }
+        return eventList
+    }
+
     private fun petToContentValues(pet: Pet) = ContentValues().apply {
         with(pet) {
             put(NAME_COLUMN, nome)
@@ -120,6 +130,12 @@ class PetSqliteImpl(context: Context) :PetDao {
             put(DESCRICAO_COLUMN, descricao)
             put(NAME_COLUMN, nomePet)
         }
+    }
+    private fun cursorToEvent(cursor: Cursor) = with(cursor) {
+        Event(
+            getString(getColumnIndexOrThrow(DATE_EVENT_COLUMN)),
+            getString(getColumnIndexOrThrow(DESCRICAO_COLUMN))
+        )
     }
 
 

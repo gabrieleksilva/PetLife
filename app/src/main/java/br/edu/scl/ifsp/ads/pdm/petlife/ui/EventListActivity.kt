@@ -60,7 +60,10 @@ class EventListActivity : AppCompatActivity() {
             it.subtitle = getString(R.string.event_list)
             setSupportActionBar(it)
         }
-        //fillEventList()
+        intentPet?.let { pet ->
+            fillEventList(pet.nome)
+        }
+
         aelb.eventoLv.adapter = eventAdapter
 
         eventarl =
@@ -114,15 +117,13 @@ class EventListActivity : AppCompatActivity() {
         }
 
     }
-    private fun fillEventList() {
-        for (index in 1..10) {
-            //populando a lista com valores estaticos
-            eventList.add(
-                Event(
-                    "Data evento $index",
-                    "descricao $index"
-                )
-            )
-        }
+    private fun fillEventList(nomePet: String) {
+        Thread{
+            runOnUiThread{
+                eventList.clear()
+                eventList.addAll(mainController.getEvents(nomePet))
+                eventAdapter.notifyDataSetChanged()
+            }
+        }.start()
     }
 }
