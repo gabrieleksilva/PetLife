@@ -1,5 +1,6 @@
 package br.edu.scl.ifsp.ads.pdm.petlife.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.edu.scl.ifsp.ads.pdm.petlife.R
@@ -43,7 +44,7 @@ class UltimaVisitaVetActivity : AppCompatActivity() {
             }
         }
 
-        auvet.eventoRg.setOnCheckedChangeListener{ _, checkedId ->
+        auvet.eventoRg.setOnCheckedChangeListener { _, checkedId ->
             eventoPet = when (checkedId) {
                 R.id.vetRb -> auvet.vetRb.text.toString()
                 R.id.vacinaRb -> auvet.vacinaRb.text.toString()
@@ -52,6 +53,16 @@ class UltimaVisitaVetActivity : AppCompatActivity() {
             }
         }
 
+        auvet.ultVisitBt.setOnClickListener {
+            val event = Event(
+                auvet.dataEt.text.toString(),
+                eventoPet
+            )
+            Intent().apply {
+                putExtra(EVENT_LIST, event)
+                setResult(RESULT_OK, this)
+                finish()
+            }
+        }
     }
-
 }
