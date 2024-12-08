@@ -3,6 +3,7 @@ package br.edu.scl.ifsp.ads.pdm.petlife.model
 import android.content.ContentValues
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
 import br.edu.scl.ifsp.ads.pdm.petlife.R
@@ -24,8 +25,8 @@ class PetSqliteImpl(context: Context) :PetDao {
                 "$NAME_COLUMN TEXT NOT NULL PRIMARY KEY, " +
                 "$DATE_NASC_COLUMN TEXT NOT NULL, " +
                 "$TYPE_PET_COLUMN TEXT NOT NULL, " +
-                "$SIZE_PET_COLUMN TEXT NOT NULL, " +
-                "$COLOR_PET_COLUMN TEXT NOT NULL );"
+                "$COLOR_PET_COLUMN TEXT NOT NULL, " +
+                "$SIZE_PET_COLUMN TEXT NOT NULL);"
     }
 
     private val petDatabase: SQLiteDatabase = context.openOrCreateDatabase(
@@ -45,12 +46,18 @@ class PetSqliteImpl(context: Context) :PetDao {
     override fun createPet(pet: Pet) =
         petDatabase.insert(PET_TABLE, null, petToContentValues(pet))
 
-    override fun retrievePet(nome: String): Pet {
-        TODO("Not yet implemented")
-    }
+    override fun retrievePet(nome: String) = cursorToPet(petDatabase.
+    rawQuery("SELECT * FROM $PET_TABLE WHERE $NAME_COLUMN = ?", null))
+
 
     override fun retrievePets(): MutableList<Pet> {
-        TODO("Not yet implemented")
+        val petList = mutableListOf<Pet>()
+
+        val cursor = petDatabase.rawQuery("SELECT * FROM $PET_TABLE", null)
+        while (cursor.moveToNext()){
+            petList.add(cursorToPet(cursor))
+        }
+        return petList
     }
 
     override fun updatePet(pet: Pet) = petDatabase.update(
@@ -70,9 +77,18 @@ class PetSqliteImpl(context: Context) :PetDao {
             put(NAME_COLUMN, nome)
             put(DATE_NASC_COLUMN, dtNasc)
             put(TYPE_PET_COLUMN, tipo)
-            put(SIZE_PET_COLUMN, porte)
             put(COLOR_PET_COLUMN, cor)
+            put(SIZE_PET_COLUMN, porte)
         }
+    }
+    private fun cursorToPet(cursor: Cursor) = with(cursor) {
+        Pet(
+            getString(getColumnIndexOrThrow(NAME_COLUMN)),
+            getString(getColumnIndexOrThrow(DATE_NASC_COLUMN)),
+            getString(getColumnIndexOrThrow(TYPE_PET_COLUMN)),
+            getString(getColumnIndexOrThrow(COLOR_PET_COLUMN)),
+            getString(getColumnIndexOrThrow(SIZE_PET_COLUMN))
+        )
     }
 
 
