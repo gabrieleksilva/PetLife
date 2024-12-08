@@ -20,6 +20,10 @@ class PetSqliteImpl(context: Context) :PetDao {
         private const val SIZE_PET_COLUMN = "size_pet"
         private const val COLOR_PET_COLUMN = "color_pet"
 
+        private const val EVENT_TABLE = "event"
+        private const val DATE_EVENT_COLUMN = "date_nasc"
+        private const val DESCRICAO_COLUMN = "descricao_pet"
+        private const val ID_COLUMN = "descricao_pet"
 
         private const val CREATE_PET_TABLE_STATEMENT = "CREATE TABLE IF NOT EXISTS $PET_TABLE (" +
                 "$NAME_COLUMN TEXT NOT NULL PRIMARY KEY, " +
@@ -27,7 +31,18 @@ class PetSqliteImpl(context: Context) :PetDao {
                 "$TYPE_PET_COLUMN TEXT NOT NULL, " +
                 "$COLOR_PET_COLUMN TEXT NOT NULL, " +
                 "$SIZE_PET_COLUMN TEXT NOT NULL);"
+
+        private const val CREATE_EVENT_TABLE_STATEMENT = "CREATE TABLE IF NOT EXISTS $EVENT_TABLE (" +
+                "$DATE_EVENT_COLUMN TEXT NOT NULL, " +
+                "$DESCRICAO_COLUMN TEXT NOT NULL," +
+                "$NAME_COLUMN TEXT NOT NULL, " +
+                "$ID_COLUMN INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "CONSTRAINT FK_PET_EVENT FOREIGN KEY ($NAME_COLUMN) " +
+                "REFERENCES $PET_TABLE($NAME_COLUMN)" +
+                "ON DELETE CASCADE);" //se um pet for excluido, sera deletado todos os eventos relacionado a ele
     }
+
+
 
     private val petDatabase: SQLiteDatabase = context.openOrCreateDatabase(
         PET_DATABASE_FILE,
@@ -39,7 +54,14 @@ class PetSqliteImpl(context: Context) :PetDao {
         try {
             petDatabase.execSQL(CREATE_PET_TABLE_STATEMENT)
         } catch (se: SQLException) {
-            Log.e(context.getString(R.string.app_name), se.toString())
+            Log.e(context.getString(R.string.pet_list), se.toString())
+        }
+    }
+    init {
+        try {
+            petDatabase.execSQL(CREATE_EVENT_TABLE_STATEMENT)
+        } catch (se: SQLException) {
+            Log.e(context.getString(R.string.event_list), se.toString())
         }
     }
 
@@ -72,6 +94,10 @@ class PetSqliteImpl(context: Context) :PetDao {
         "$NAME_COLUMN = ?",
         arrayOf(nome))
 
+    override fun createEvent(event: Event, nomePet: String)=
+        petDatabase.insert(EVENT_TABLE, null, eventToContentValues(event, nomePet))
+
+
     private fun petToContentValues(pet: Pet) = ContentValues().apply {
         with(pet) {
             put(NAME_COLUMN, nome)
@@ -89,6 +115,13 @@ class PetSqliteImpl(context: Context) :PetDao {
             getString(getColumnIndexOrThrow(COLOR_PET_COLUMN)),
             getString(getColumnIndexOrThrow(SIZE_PET_COLUMN))
         )
+    }
+    private fun eventToContentValues(event: Event, nomePet: String) = ContentValues().apply {
+        with(event) {
+            put(DATE_EVENT_COLUMN, dataEvent)
+            put(DESCRICAO_COLUMN, descricao)
+            put(NAME_COLUMN, nomePet)
+        }
     }
 
 

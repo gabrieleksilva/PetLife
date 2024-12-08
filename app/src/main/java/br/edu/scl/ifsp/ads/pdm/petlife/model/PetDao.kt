@@ -6,4 +6,5 @@ interface PetDao {
     fun retrievePets(): MutableList<Pet>
     fun updatePet(pet: Pet): Int
     fun deletePet(nome: String): Int
+    fun createEvent(event: Event, nomePet: String): Long
 }

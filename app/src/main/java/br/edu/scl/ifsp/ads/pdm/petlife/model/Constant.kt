@@ -5,4 +5,6 @@ object Constant {
     const val EVENT_LIST = "EVENT_LIST"
     const val VIEW_MODE = "VIEW_MODE"
     const val PARAMETRO_VET = "PARAMETRO_VET"
+    const val ID_EVENTO = -1
+
 }
