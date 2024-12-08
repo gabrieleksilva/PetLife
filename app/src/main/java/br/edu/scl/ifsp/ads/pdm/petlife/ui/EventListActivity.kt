@@ -134,6 +134,15 @@ class EventListActivity : AppCompatActivity() {
         val position = (item.menuInfo as AdapterContextMenuInfo).position
         val eventId = eventList[position].id
         return when(item.itemId){
+            R.id.editarEventMi ->{
+                //Chamar a tela de edição
+                Intent(this, UltimaVisitaVetActivity::class.java).apply {
+                    putExtra(ULTIMA_VISITA_VET, eventList[position])
+                    putExtra(Constant.VIEW_MODE, false)
+                    eventarl.launch(this)
+                }
+                true
+            }
 
             R.id.removerEventMi ->{
                 if (eventId != -1) {

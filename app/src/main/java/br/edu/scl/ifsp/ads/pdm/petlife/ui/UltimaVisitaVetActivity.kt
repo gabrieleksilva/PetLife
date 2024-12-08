@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import br.edu.scl.ifsp.ads.pdm.petlife.R
 import br.edu.scl.ifsp.ads.pdm.petlife.databinding.ActivityUltimaVisitaVetBinding
 import br.edu.scl.ifsp.ads.pdm.petlife.model.Constant
-import br.edu.scl.ifsp.ads.pdm.petlife.model.Constant.EVENT_LIST
 import br.edu.scl.ifsp.ads.pdm.petlife.model.Constant.ULTIMA_VISITA_VET
 import br.edu.scl.ifsp.ads.pdm.petlife.model.Event
 
@@ -17,6 +16,8 @@ class UltimaVisitaVetActivity : AppCompatActivity() {
         ActivityUltimaVisitaVetBinding.inflate(layoutInflater)
     }
     private var eventoPet: String = " "
+    private var nomePet: String = " "
+    private var idPet: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +28,8 @@ class UltimaVisitaVetActivity : AppCompatActivity() {
         val receivedEvent = intent.getParcelableExtra<Event>(ULTIMA_VISITA_VET)
 
         receivedEvent?.let { ultimaVisitaVet ->
+            idPet = receivedEvent.id
+            nomePet = receivedEvent.nomePet
             with(auvet) {
                 dataEt.setText(ultimaVisitaVet.dataEvent)
 
@@ -61,7 +64,10 @@ class UltimaVisitaVetActivity : AppCompatActivity() {
         auvet.ultVisitBt.setOnClickListener {
             val event = Event(
                 auvet.dataEt.text.toString(),
-                eventoPet
+                eventoPet,
+                nomePet,
+                idPet
+
             )
             Intent().apply {
                 putExtra(ULTIMA_VISITA_VET, event)
