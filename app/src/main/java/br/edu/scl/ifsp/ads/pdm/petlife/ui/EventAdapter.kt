@@ -11,8 +11,10 @@ import br.edu.scl.ifsp.ads.pdm.petlife.R
 import br.edu.scl.ifsp.ads.pdm.petlife.databinding.TileEventBinding
 import br.edu.scl.ifsp.ads.pdm.petlife.model.Event
 
-class EventAdapter(context: Context,
-                   private val eventList: MutableList<Event>):
+class EventAdapter(
+    context: Context,
+    private val eventList: MutableList<Event>
+) :
     ArrayAdapter<Event>(context, R.layout.tile_event, eventList) {
     private data class EventTileHolder(
         val dataTv: TextView,
@@ -45,6 +47,12 @@ class EventAdapter(context: Context,
             )
 
             eventTile.tag = newEventTileHolder
+        }
+        // preenche os valores da celula com o novo Evento
+        val holder = eventTile?.tag as EventTileHolder
+        holder?.let {
+            it.dataTv.text = event.dataEvent
+            it.descTv.text = event.descricao
         }
         return eventTile
     }
