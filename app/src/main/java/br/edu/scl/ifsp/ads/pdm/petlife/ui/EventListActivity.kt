@@ -4,14 +4,18 @@ import android.content.Intent
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Bundle
+import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView.AdapterContextMenuInfo
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import br.edu.scl.ifsp.ads.pdm.petlife.R
 import br.edu.scl.ifsp.ads.pdm.petlife.controller.EventoController
 import br.edu.scl.ifsp.ads.pdm.petlife.databinding.ActivityEventListBinding
+import br.edu.scl.ifsp.ads.pdm.petlife.model.Constant
 
 import br.edu.scl.ifsp.ads.pdm.petlife.model.Constant.PARAMETRO_DADOS
 import br.edu.scl.ifsp.ads.pdm.petlife.model.Constant.ULTIMA_VISITA_VET
@@ -93,12 +97,20 @@ class EventListActivity : AppCompatActivity() {
                     }
                 }
             }
+
+        registerForContextMenu(aelb.eventoLv) // para chamar o menu flutuante
     }
     //criar o menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_evento, menu)
         return true
     }
+
+    override fun onCreateContextMenu(
+        menu: ContextMenu?,
+        v: View?,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) = menuInflater.inflate(R.menu.context_menu_evento, menu)
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -117,6 +129,26 @@ class EventListActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        val position = (item.menuInfo as AdapterContextMenuInfo).position
+        val eventId = eventList[position].id
+        return when(item.itemId){
+
+            R.id.removerEventMi ->{
+                if (eventId != -1) {
+                    mainController.deleteEvents(eventId)
+                    eventList.removeAt(position) // Remove o item da lista
+                    eventAdapter.notifyDataSetChanged() // Avisa o adapter sobre a remoção
+                }
+                true
+            }
+            else -> {
+                false
+            }
+        }
+    }
+
     private fun fillEventList(nomePet: String) {
         Thread{
             runOnUiThread{

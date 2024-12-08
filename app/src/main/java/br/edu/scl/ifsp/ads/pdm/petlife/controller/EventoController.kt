@@ -10,4 +10,5 @@ class EventoController(eventListActivity: EventListActivity) {
 
     fun insertEvent(event: Event, nome: String) = petDao.createEvent(event, nome)
     fun getEvents(nomePet: String) = petDao.retrieveEvents(nomePet)
+    fun deleteEvents(id: Int) = petDao.deleteEvent(id)
 }

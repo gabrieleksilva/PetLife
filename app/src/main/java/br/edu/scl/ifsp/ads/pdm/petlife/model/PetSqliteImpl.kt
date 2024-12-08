@@ -106,6 +106,13 @@ class PetSqliteImpl(context: Context) :PetDao {
         return eventList
     }
 
+    override fun deleteEvent(id: Int) = petDatabase.delete(
+        EVENT_TABLE,
+        "$ID_COLUMN = ?",
+        arrayOf(id.toString())
+    )
+
+
     private fun petToContentValues(pet: Pet) = ContentValues().apply {
         with(pet) {
             put(NAME_COLUMN, nome)
@@ -134,7 +141,9 @@ class PetSqliteImpl(context: Context) :PetDao {
     private fun cursorToEvent(cursor: Cursor) = with(cursor) {
         Event(
             getString(getColumnIndexOrThrow(DATE_EVENT_COLUMN)),
-            getString(getColumnIndexOrThrow(DESCRICAO_COLUMN))
+            getString(getColumnIndexOrThrow(DESCRICAO_COLUMN)),
+            getString(getColumnIndexOrThrow(NAME_COLUMN)),
+            getInt(getColumnIndexOrThrow(ID_COLUMN))
         )
     }
 

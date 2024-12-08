@@ -10,6 +10,7 @@ import br.edu.scl.ifsp.ads.pdm.petlife.model.Constant.ID_EVENTO
 class Event(
     var dataEvent: String = "",
     var descricao: String = "",
+    var nomePet: String = "",
     @PrimaryKey(autoGenerate = true)
-    var id: Int? = ID_EVENTO
+    var id: Int = ID_EVENTO
 ): Parcelable
