@@ -56,6 +56,16 @@ class MainActivity : AppCompatActivity() {
         fillPetList()
         amb.petsLv.adapter = petAdapter
 
+        //find by id
+        amb.petsLv.setOnItemClickListener { _, _, position, _ ->
+            Intent(this, DadosPetActivity::class.java).apply {
+                putExtra(PARAMETRO_DADOS, petList[position])
+                putExtra(Constant.VIEW_MODE,true)
+                startActivity(this)
+            }
+        }
+
+
         dadosarl =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == RESULT_OK){
@@ -152,17 +162,11 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun fillPetList() {
-        for (index in 1..20) {
-            //populando a lista com valores estaticos
-            petList.add(
-                Pet(
-                    "Nome $index",
-                    "Data Nasc $index",
-                    "Tipo $index",
-                    "Cord $index",
-                    "Porte $index"
-                )
-            )
+        val pets = mainController.getPets()
+        runOnUiThread {
+            petList.clear()
+            petList.addAll(pets)
+            petAdapter.notifyDataSetChanged()
         }
     }
 

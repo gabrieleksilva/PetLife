@@ -22,25 +22,46 @@ class DadosPetActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(adb.root)
 
+        // se for falso ou vazio ele vai para o modo visualização e nao modo edicao
         val viewMode = intent.getBooleanExtra(Constant.VIEW_MODE, false)
+
         val receivedPet = intent.getParcelableExtra<Pet>(PARAMETRO_DADOS)
 
         receivedPet?.let { pet ->
             with(adb) {
                 // Preenchendo os campos com os dados recebidos
+                //modo edicao
                 nomeEt.setText(pet.nome)
                 dataEt.setText(pet.dtNasc)
                 corEt.setText(pet.cor)
 
-                // Configurando os botões de rádio com base no tipo e porte
+
                 when (pet.tipo) {
-                    cachorroRb.text.toString() -> especieRg.check(cachorroRb.id)
-                    gatoRb.text.toString() -> especieRg.check(gatoRb.id)
+                    cachorroRb.text.toString() -> {
+                        especieRg.check(cachorroRb.id)
+                        tipoAnimal = cachorroRb.text.toString()
+                    }
+
+                    gatoRb.text.toString() -> {
+                        especieRg.check(gatoRb.id)
+                        tipoAnimal = gatoRb.text.toString()
+                    }
                 }
                 when (pet.porte) {
-                    pequenoRb.text.toString() -> tamanhoRg.check(pequenoRb.id)
-                    medioRb.text.toString() -> tamanhoRg.check(medioRb.id)
-                    grandeRb.text.toString() -> tamanhoRg.check(grandeRb.id)
+                    pequenoRb.text.toString() -> {
+                        tamanhoRg.check(pequenoRb.id)
+                        porteAnimal = pequenoRb.text.toString()
+                    }
+
+                    medioRb.text.toString() -> {
+                        tamanhoRg.check(medioRb.id)
+                        porteAnimal = medioRb.text.toString()
+                    }
+
+                    grandeRb.text.toString() -> {
+                        tamanhoRg.check(grandeRb.id)
+                        porteAnimal = grandeRb.text.toString()
+                    }
                 }
             }
         }
@@ -78,33 +99,21 @@ class DadosPetActivity : AppCompatActivity() {
         }
 
 
-        with(adb) {
-            salvarDadosBt.setOnClickListener {
 
-                val dadosPet: Pet = Pet(
-                    nome = nomeEt.text.toString(),
-                    dtNasc = dataEt.text.toString(),
-                    tipo = tipoAnimal,
-                    cor = corEt.text.toString(),
-                    porte = porteAnimal
-                )
-
-                //criando uma Intent
-                Intent().apply {
-                    putExtra(PARAMETRO_DADOS, dadosPet)
-                    setResult(RESULT_OK, this)
-                }
-                finish()
-
-            }
-        }
+        //modo visualização
         adb.run {
             nomeEt.isEnabled = !viewMode
             dataEt.isEnabled = !viewMode
             corEt.isEnabled = !viewMode
-            especieRg.isEnabled = !viewMode
-            tamanhoRg.isEnabled = !viewMode
+            cachorroRb.isEnabled = !viewMode
+            gatoRb.isEnabled = !viewMode
+            pequenoRb.isEnabled = !viewMode
+            medioRb.isEnabled = !viewMode
+            grandeRb.isEnabled = !viewMode
+
             salvarDadosBt.visibility = if (viewMode) GONE else View.VISIBLE
+
         }
+
     }
 }
