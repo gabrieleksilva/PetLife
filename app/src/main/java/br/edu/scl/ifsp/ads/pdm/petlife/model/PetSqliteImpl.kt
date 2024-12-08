@@ -21,9 +21,9 @@ class PetSqliteImpl(context: Context) :PetDao {
         private const val COLOR_PET_COLUMN = "color_pet"
 
         private const val EVENT_TABLE = "event"
-        private const val DATE_EVENT_COLUMN = "date_nasc"
+        private const val DATE_EVENT_COLUMN = "event_date"
         private const val DESCRICAO_COLUMN = "descricao_pet"
-        private const val ID_COLUMN = "descricao_pet"
+        private const val ID_COLUMN = "id_evento"
 
         private const val CREATE_PET_TABLE_STATEMENT = "CREATE TABLE IF NOT EXISTS $PET_TABLE (" +
                 "$NAME_COLUMN TEXT NOT NULL PRIMARY KEY, " +
@@ -65,8 +65,7 @@ class PetSqliteImpl(context: Context) :PetDao {
         }
     }
 
-    override fun createPet(pet: Pet) =
-        petDatabase.insert(PET_TABLE, null, petToContentValues(pet))
+    override fun createPet(pet: Pet) = petDatabase.insert(PET_TABLE, null, petToContentValues(pet))
 
     override fun retrievePet(nome: String) = cursorToPet(petDatabase.
     rawQuery("SELECT * FROM $PET_TABLE WHERE $NAME_COLUMN = ?", null))
@@ -96,7 +95,6 @@ class PetSqliteImpl(context: Context) :PetDao {
 
     override fun createEvent(event: Event, nomePet: String)=
         petDatabase.insert(EVENT_TABLE, null, eventToContentValues(event, nomePet))
-
 
     private fun petToContentValues(pet: Pet) = ContentValues().apply {
         with(pet) {
