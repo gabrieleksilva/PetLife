@@ -15,7 +15,9 @@ import br.edu.scl.ifsp.ads.pdm.petlife.R
 import br.edu.scl.ifsp.ads.pdm.petlife.controller.MainController
 import br.edu.scl.ifsp.ads.pdm.petlife.databinding.ActivityMainBinding
 import br.edu.scl.ifsp.ads.pdm.petlife.model.Constant
+import br.edu.scl.ifsp.ads.pdm.petlife.model.Constant.EVENT_LIST
 import br.edu.scl.ifsp.ads.pdm.petlife.model.Constant.PARAMETRO_DADOS
+import br.edu.scl.ifsp.ads.pdm.petlife.model.Event
 import br.edu.scl.ifsp.ads.pdm.petlife.model.Pet
 
 class MainActivity : AppCompatActivity() {
@@ -60,7 +62,6 @@ class MainActivity : AppCompatActivity() {
         amb.petsLv.setOnItemClickListener { _, _, position, _ ->
             Intent(this, EventListActivity::class.java).apply {
                 putExtra(PARAMETRO_DADOS, petList[position])
-                putExtra(Constant.VIEW_MODE,true)
                 startActivity(this)
             }
         }
