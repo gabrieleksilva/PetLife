@@ -4,4 +4,6 @@
     <string name="nome">Nome</string>
     <string name="pet_list">Pet List</string>
     <string name="event_list">Event list</string>
+    <string name="data_evento">Data evento</string>
+    <string name="descricao">Descricao</string>
 </resources>
