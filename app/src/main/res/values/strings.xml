@@ -3,4 +3,5 @@
     <string name="especie">Espécie</string>
     <string name="nome">Nome</string>
     <string name="pet_list">Pet List</string>
+    <string name="event_list">Event list</string>
 </resources>

@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
         //find by id
         amb.petsLv.setOnItemClickListener { _, _, position, _ ->
-            Intent(this, DadosPetActivity::class.java).apply {
+            Intent(this, EventListActivity::class.java).apply {
                 putExtra(PARAMETRO_DADOS, petList[position])
                 putExtra(Constant.VIEW_MODE,true)
                 startActivity(this)
