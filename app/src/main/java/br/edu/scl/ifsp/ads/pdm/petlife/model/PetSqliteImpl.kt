@@ -48,7 +48,9 @@ class PetSqliteImpl(context: Context) :PetDao {
         PET_DATABASE_FILE,
         MODE_PRIVATE,
         null
-    )
+    ).apply {
+        execSQL("PRAGMA foreign_keys = ON;")
+    }
 
     init {
         try {
