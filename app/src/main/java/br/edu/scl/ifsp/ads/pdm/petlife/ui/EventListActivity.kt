@@ -90,7 +90,9 @@ class EventListActivity : AppCompatActivity() {
                         //Se já existir, o pet na lista é atualizado
                         else {
                             eventList[position] = receivedEvent
-                            //mainController.modifyPet(receivedEvent)
+                            intentPet?.let { pet ->
+                                mainController.modifyEvent(receivedEvent, pet.nome)
+                            }
                         }
 
                         eventAdapter.notifyDataSetChanged() // avisa a view que teve um novo elemento adicionado a lista
@@ -122,7 +124,6 @@ class EventListActivity : AppCompatActivity() {
                 true
             }
 
-
             else -> {
                 false
             }
@@ -132,24 +133,21 @@ class EventListActivity : AppCompatActivity() {
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         val position = (item.menuInfo as AdapterContextMenuInfo).position
-        val eventId = eventList[position].id
         return when(item.itemId){
             R.id.editarEventMi ->{
                 //Chamar a tela de edição
                 Intent(this, UltimaVisitaVetActivity::class.java).apply {
                     putExtra(ULTIMA_VISITA_VET, eventList[position])
-                    putExtra(Constant.VIEW_MODE, false)
                     eventarl.launch(this)
                 }
                 true
             }
 
             R.id.removerEventMi ->{
-                if (eventId != -1) {
-                    mainController.deleteEvents(eventId)
+                    mainController.deleteEvents(eventList[position].id)
                     eventList.removeAt(position) // Remove o item da lista
-                    eventAdapter.notifyDataSetChanged() // Avisa o adapter sobre a remoção
-                }
+                    eventAdapter.notifyDataSetChanged()
+                    // Avisa o adapter sobre a remoção
                 true
             }
             else -> {

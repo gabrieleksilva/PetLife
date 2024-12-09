@@ -86,6 +86,5 @@ class UltimaVisitaVetActivity : AppCompatActivity() {
 
             ultVisitBt.visibility = if (viewMode) GONE else View.VISIBLE
 
-        }
-    }
+        } }
 }

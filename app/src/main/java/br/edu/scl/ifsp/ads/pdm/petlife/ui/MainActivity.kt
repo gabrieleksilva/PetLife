@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity() {
                 //Chamar a tela de edição
                 Intent(this, DadosPetActivity::class.java).apply {
                     putExtra(PARAMETRO_DADOS, petList[position])
-                    putExtra(Constant.VIEW_MODE, false)
+                    putExtra(Constant.VIEW_MODE, true)
                     dadosarl.launch(this)
                 }
                 true

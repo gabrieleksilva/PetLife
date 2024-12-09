@@ -100,12 +100,12 @@ class PetSqliteImpl(context: Context) : PetDao {
 
     override fun createEvent(event: Event, nomePet: String): Long {
         val cursor = petDatabase.rawQuery("SELECT MAX(id_evento) FROM event", null)
-        var lastId = -1L
+        var lastId = 0L
         if (cursor.moveToFirst()) {
             lastId = cursor.getLong(0)
         }
         cursor.close()
-        event.id = lastId.toInt()
+        event.id = lastId.toInt()+1
         return petDatabase.insert(EVENT_TABLE, null, eventToContentValues(event, nomePet))
     }
 
@@ -128,6 +128,14 @@ class PetSqliteImpl(context: Context) : PetDao {
         "$ID_COLUMN = ?",
         arrayOf(id.toString())
     )
+
+    override fun updateEvent(event: Event, nomePet: String) =
+        petDatabase.update(
+            EVENT_TABLE,
+            eventToContentValues(event, nomePet),
+            "$ID_COLUMN = ?",
+            arrayOf(event.id.toString()))
+
 
 
     private fun petToContentValues(pet: Pet) = ContentValues().apply {

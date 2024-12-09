@@ -35,6 +35,9 @@ class DadosPetActivity : AppCompatActivity() {
                 dataEt.setText(pet.dtNasc)
                 corEt.setText(pet.cor)
 
+                nomeEt.isFocusable = !viewMode
+
+
 
                 when (pet.tipo) {
                     cachorroRb.text.toString() -> {
@@ -97,23 +100,5 @@ class DadosPetActivity : AppCompatActivity() {
                 finish()
             }
         }
-
-
-
-        //modo visualização
-        adb.run {
-            nomeEt.isEnabled = !viewMode
-            dataEt.isEnabled = !viewMode
-            corEt.isEnabled = !viewMode
-            cachorroRb.isEnabled = !viewMode
-            gatoRb.isEnabled = !viewMode
-            pequenoRb.isEnabled = !viewMode
-            medioRb.isEnabled = !viewMode
-            grandeRb.isEnabled = !viewMode
-
-            salvarDadosBt.visibility = if (viewMode) GONE else View.VISIBLE
-
-        }
-
     }
 }
