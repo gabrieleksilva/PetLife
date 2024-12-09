@@ -32,6 +32,14 @@ class UltimaVisitaVetActivity : AppCompatActivity() {
             nomePet = receivedEvent.nomePet
             with(auvet) {
                 dataEt.setText(ultimaVisitaVet.dataEvent)
+                if(ultimaVisitaVet.timeMedicine == ""){
+                    auvet.timeMedicineEt.visibility = View.GONE
+                }else{
+                    timeMedicineEt.setText(ultimaVisitaVet.timeMedicine)
+                    auvet.timeMedicineEt.visibility = View.VISIBLE
+                }
+
+
 
                 when (ultimaVisitaVet.descricao) {
                     vetRb.text.toString() -> {
@@ -48,6 +56,10 @@ class UltimaVisitaVetActivity : AppCompatActivity() {
                         eventoRg.check(petshopRb.id)
                         eventoPet = petshopRb.text.toString()
                     }
+                    timeMedicineRb.text.toString() -> {
+                        eventoRg.check(timeMedicineRb.id)
+                        eventoPet = timeMedicineRb.text.toString()
+                    }
                 }
             }
         }
@@ -57,7 +69,13 @@ class UltimaVisitaVetActivity : AppCompatActivity() {
                 R.id.vetRb -> auvet.vetRb.text.toString()
                 R.id.vacinaRb -> auvet.vacinaRb.text.toString()
                 R.id.petshopRb -> auvet.petshopRb.text.toString()
+                R.id.timeMedicineRb -> auvet.timeMedicineRb.text.toString()
                 else -> ""
+            }
+            if(eventoPet == auvet.timeMedicineRb.text.toString()){
+                auvet.timeMedicineEt.visibility = View.VISIBLE
+            }else{
+                auvet.timeMedicineEt.visibility = View.GONE
             }
         }
 
@@ -66,6 +84,7 @@ class UltimaVisitaVetActivity : AppCompatActivity() {
                 auvet.dataEt.text.toString(),
                 eventoPet,
                 nomePet,
+                auvet.timeMedicineEt.text.toString(),
                 idPet
 
             )

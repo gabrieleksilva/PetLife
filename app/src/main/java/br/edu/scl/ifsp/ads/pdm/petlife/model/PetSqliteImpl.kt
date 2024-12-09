@@ -23,6 +23,7 @@ class PetSqliteImpl(context: Context) : PetDao {
         private const val EVENT_TABLE = "event"
         private const val DATE_EVENT_COLUMN = "event_date"
         private const val DESCRICAO_COLUMN = "descricao_pet"
+        private const val MEDICINE_COLUMN = "time_medicine"
         private const val ID_COLUMN = "id_evento"
 
         private const val CREATE_PET_TABLE_STATEMENT = "CREATE TABLE IF NOT EXISTS $PET_TABLE (" +
@@ -37,6 +38,7 @@ class PetSqliteImpl(context: Context) : PetDao {
                     "$DATE_EVENT_COLUMN TEXT NOT NULL, " +
                     "$DESCRICAO_COLUMN TEXT NOT NULL," +
                     "$NAME_COLUMN TEXT NOT NULL, " +
+                    "$MEDICINE_COLUMN TEXT," +
                     "$ID_COLUMN INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "CONSTRAINT FK_PET_EVENT FOREIGN KEY ($NAME_COLUMN) " +
                     "REFERENCES $PET_TABLE($NAME_COLUMN)" +
@@ -163,6 +165,7 @@ class PetSqliteImpl(context: Context) : PetDao {
             put(DATE_EVENT_COLUMN, dataEvent)
             put(DESCRICAO_COLUMN, descricao)
             put(NAME_COLUMN, nomePet)
+            put(MEDICINE_COLUMN, timeMedicine)
         }
     }
 
@@ -171,6 +174,7 @@ class PetSqliteImpl(context: Context) : PetDao {
             getString(getColumnIndexOrThrow(DATE_EVENT_COLUMN)),
             getString(getColumnIndexOrThrow(DESCRICAO_COLUMN)),
             getString(getColumnIndexOrThrow(NAME_COLUMN)),
+            getString(getColumnIndexOrThrow(MEDICINE_COLUMN)),
             getInt(getColumnIndexOrThrow(ID_COLUMN))
         )
     }
